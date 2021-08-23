@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 import CreateRoom from './CreateRoom';
@@ -6,6 +7,20 @@ import JoinRoom from './JoinRoom';
 import Room from './Room';
 
 export default function Home() {
+
+  const [roomCode, setRoomCode] = useState(null);
+
+  useEffect(() => {
+    const userInRoom = async () => {
+      try {
+        const response = await axios.get('/api/user-in-room');
+        response.data.code !== '' ? setRoomCode(response.data.code) : setRoomCode(null);
+      } catch (err) {
+        console.log('error', err);
+      }
+    }
+    userInRoom();
+  }, []);
 
   const renderHomePage = () => {
     return (
@@ -28,7 +43,9 @@ export default function Home() {
   return (
     <Router>
       <Switch>
-        <Route exact path='/'>{renderHomePage()}</Route>
+        <Route exact path='/' render={() => {
+          { roomCode ? (<Redirect to={`/room/${roomCode}`} />) : renderHomePage() }
+        }} />
         <Route path='/join' component={JoinRoom} />
         <Route path='/create' component={CreateRoom} />
         <Route path='/room/:roomCode' component={Room} />
