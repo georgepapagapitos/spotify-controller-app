@@ -14,7 +14,7 @@ export default function Home() {
     const userInRoom = async () => {
       try {
         const response = await axios.get('/api/user-in-room');
-        response.data.code !== '' ? setRoomCode(response.data.code) : setRoomCode(null);
+        setRoomCode(response.data.code);
       } catch (err) {
         console.log('error', err);
       }
