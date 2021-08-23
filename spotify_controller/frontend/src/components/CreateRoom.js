@@ -21,7 +21,7 @@ export default function CreateRoom() {
   const handleCreateRoom = async () => {
     try {
       const response = await axios.post('/api/create', { votes_to_skip: votesToSkip, guest_can_pause: guestCanPause });
-      console.log(response);
+      console.log(response.data);
     } catch (err) {
       console.log('error', err)
     }
