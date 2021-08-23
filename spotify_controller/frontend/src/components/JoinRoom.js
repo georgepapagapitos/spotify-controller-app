@@ -14,8 +14,14 @@ export default function JoinRoom() {
           Join A Room
         </Typography>
       </Grid>
-      <Grid xs={12}>
+      <Grid item xs={12}>
         <TextField error={error} label="Room Code" placeholder="Enter a room code..." value={roomCode} helperText={error} variant="outlined" />
+      </Grid>
+      <Grid item xs={12}>
+        <Button variant="contained" color="primary">Enter Room</Button>
+      </Grid>
+      <Grid item xs={12}>
+        <Button variant="contained" color="secondary" to="/" component={Link}>Back</Button>
       </Grid>
     </Grid>
   );
