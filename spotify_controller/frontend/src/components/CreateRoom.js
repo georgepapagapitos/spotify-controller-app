@@ -41,16 +41,16 @@ export default function CreateRoom() {
   }
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} align="center">
+    <Grid container spacing={1} align="center">
+      <Grid item xs={12}>
         <Typography component='h4' variant='h4'>
           Create A Room
         </Typography>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <FormControl component="fieldset">
           <FormHelperText component="div">
-            <div align="center">
+            <div>
               Guest Control of Playback State
             </div>
           </FormHelperText>
@@ -60,20 +60,20 @@ export default function CreateRoom() {
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <FormControl>
           <TextField required={true} type="number" defaultValue={defaultVotes} inputProps={{ min: 1, style: { textAlign: "center" } }} onChange={handleVotesChange} />
           <FormHelperText component="div">
-            <div align="center">
+            <div>
               Votes Required To Skip Song
             </div>
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Button color="primary" variant="contained" onClick={handleCreateRoom}>Create A Room</Button>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Button color="secondary" variant="contained" to="/" component={Link}>Back</Button>
       </Grid>
     </Grid>
