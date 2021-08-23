@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import { TextField, Button, Grid, Typography } from '@material-ui/core';
 
 export default function JoinRoom() {
 
   const [roomCode, setRoomCode] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+
+  const history = useHistory();
 
   const handleChange = (e) => {
     setRoomCode(e.target.value);
   }
 
-  const handleClick = () => {
-    console.log('clicked');
+  const handleClick = async () => {
+    try {
+      const response = await axios.post('/api/join', { code: roomCode });
+      if (response.data === 'Room Joined') {
+        history.push(`/room/${roomCode}`);
+      } else {
+        setError("Room not found");
+      }
+    } catch (err) {
+      console.log('error', err);
+    }
   }
 
   return (
