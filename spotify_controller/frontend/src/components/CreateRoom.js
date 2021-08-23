@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import { Button, Grid, Typography, TextField, FormHelperText, FormControl, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +10,8 @@ export default function CreateRoom() {
 
   const [guestCanPause, setGuestCanPause] = useState(true);
   const [votesToSkip, setVotesToSkip] = useState(defaultVotes);
+
+  const history = useHistory();
 
   const handleVotesChange = (e) => {
     setVotesToSkip(Number(e.target.value));
@@ -21,7 +24,7 @@ export default function CreateRoom() {
   const handleCreateRoom = async () => {
     try {
       const response = await axios.post('/api/create', { votes_to_skip: votesToSkip, guest_can_pause: guestCanPause });
-      console.log(response.data);
+      history.push('/room/' + response.data.code);
     } catch (err) {
       console.log('error', err)
     }
